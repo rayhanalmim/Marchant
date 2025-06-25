@@ -90,12 +90,8 @@ export function UserAuthForm({ className, isSignUp = false, ...props }: UserAuth
       localStorage.setItem('token', access_token)
       setUser(user)
 
-      // Redirect based on subscription status
-      if (user.has_paid_subscription) {
-        navigate('/dashboard')
-      } else {
-        navigate('/landing')
-      }
+      // Redirect to dashboard after successful authentication
+      navigate('/dashboard')
     } catch (error) {
       console.error('Google login error:', error)
       setError(error instanceof Error ? error.message : 'Failed to authenticate with Google')
@@ -138,12 +134,8 @@ export function UserAuthForm({ className, isSignUp = false, ...props }: UserAuth
       localStorage.setItem('token', access_token)
       setUser(user)
 
-      // Redirect based on subscription status
-      if (user.has_paid_subscription) {
-        navigate('/dashboard')
-      } else {
-        navigate('/landing')
-      }
+      // Redirect to dashboard after successful authentication
+      navigate('/dashboard')
     } catch (error) {
       console.error('Authentication error:', error)
       setError(error instanceof Error ? error.message : 'Authentication failed')
