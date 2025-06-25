@@ -1,45 +1,23 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { UserAuthForm } from './components/user-auth-form';
-import { Bot, ArrowLeft } from 'lucide-react';
+import { Bot } from 'lucide-react';
 import { useEffect } from 'react';
 import { useUser } from '@/context/UserContext';
 
 export default function SignIn() {
-  const location = useLocation();
   const navigate = useNavigate();
-  const { user, isAuthenticated } = useUser();
-  const redirectPath = location.state?.from || '/';
+  const { isAuthenticated } = useUser();
 
   useEffect(() => {
-    // If user is authenticated, check subscription status and redirect accordingly
+    // If user is authenticated, redirect to dashboard
     if (isAuthenticated) {
-      if (user?.has_paid_subscription) {
-        navigate('/dashboard');
-      } else {
-        navigate('/landing');
-      }
+      navigate('/dashboard');
     }
-  }, [isAuthenticated, user, navigate]);
+  }, [isAuthenticated, navigate]);
 
   return (
     <div className="min-h-screen bg-black relative isolate overflow-hidden flex items-center justify-center">
-      {/* Back Button */}
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.3 }}
-        className="absolute top-4 left-4 z-20"
-      >
-        <Link
-          to="/"
-          className="flex items-center space-x-2 backdrop-blur-sm bg-black/20 px-4 py-2 rounded-full border border-white/10 text-gray-400 hover:text-white transition-colors group"
-        >
-          <ArrowLeft className="h-5 w-5 transition-transform group-hover:-translate-x-1" />
-          <span>Back</span>
-        </Link>
-      </motion.div>
-
       {/* Background Effects */}
       <div className="absolute inset-0">
         {/* Enhanced gradient background */}
